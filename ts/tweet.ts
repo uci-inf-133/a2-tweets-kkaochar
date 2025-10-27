@@ -44,10 +44,9 @@ class Tweet {
             return "unknown";
         }
         //TODO: parse the activity type from the text of the tweet
-        const miIndex = this.text.indexOf("mi");
-        const kmIndex = this.text.indexOf("km");
-        const activityStart = miIndex !== -1 ? miIndex + 3: kmIndex + 3;
-        return this.text.substring(activityStart).trim().split(" ")[0];
+        const match = this.text.match(/(\d+(\.\d+)?)\s*(mi|km)\s+?([a-zA-Z ]+)(?:-|a|my|the|with\s+)/);
+        if (!match) return "unknown";
+        return match[4].trim(); // activity type
     }
 
     get distance():number {
@@ -55,12 +54,11 @@ class Tweet {
             return 0;
         }
         //TODO: parse the distance from the text of the tweet
-        let distNum = Number(this.text.substring(this.text.search(/[0-9]/)).trim().split(" ")[0]);
-        if (this.text.includes("km")) {
-            return distNum / 1.609;
-        } else {
-            return distNum;
-        }
+        const match = this.text.match(/(\d+(\.\d+)?)\s*(mi|km)\s+?([a-zA-Z ]+)(?:-|a|my|the|with\s+)/);
+        if (!match) return 0;
+        let distNum = Number(match[1]);
+        if (match[3].toLowerCase() === "km") distNum /= 1.609;
+        return distNum;
     }
 
     getHTMLTableRow(rowNumber:number):string {
