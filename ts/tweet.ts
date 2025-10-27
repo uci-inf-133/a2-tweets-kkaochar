@@ -36,8 +36,7 @@ class Tweet {
             return "";
         }
         //TODO: parse the written text from the tweet
-        const text_substring = this.text.substring(this.text.lastIndexOf(" - ") + 1, this.text.indexOf("https"));
-        return text_substring;
+        return this.text.substring(this.text.lastIndexOf(" - "), this.text.indexOf("https"));
     }
 
     get activityType():string {
@@ -45,15 +44,23 @@ class Tweet {
             return "unknown";
         }
         //TODO: parse the activity type from the text of the tweet
-        return "";
+        const miIndex = this.text.indexOf("mi");
+        const kmIndex = this.text.indexOf("km");
+        const activityStart = miIndex !== -1 ? miIndex + 3: kmIndex + 3;
+        return this.text.substring(activityStart).trim().split(" ")[0];
     }
 
     get distance():number {
         if(this.source != 'completed_event') {
             return 0;
         }
-        //TODO: prase the distance from the text of the tweet
-        return 0;
+        //TODO: parse the distance from the text of the tweet
+        let distNum = Number(this.text.substring(this.text.search(/[0-9]/)).trim().split(" ")[0]);
+        if (this.text.includes("km")) {
+            return distNum / 1.609;
+        } else {
+            return distNum;
+        }
     }
 
     getHTMLTableRow(rowNumber:number):string {
