@@ -24,6 +24,23 @@ function parseTweets(runkeeper_tweets) {
 
 	document.getElementById("firstDate").innerText = tweet_array[0].time.toLocaleDateString("en-US", options);
 	document.getElementById("lastDate").innerText = tweet_array[tweet_array.length - 1].time.toLocaleDateString("en-US", options);
+
+	const countBySource = (type) => tweet_array.reduce((total, t) => t.source === type ? total + 1 : total, 0);
+	const pctBySource = (num) => math.format(num/tweet_array.length * 100, {notation: 'fixed', precision: 2}) + "%";
+	const completedCount = countBySource("completed_event");
+	const liveCount = countBySource("live_event");
+	const achievementCount = countBySource("achievement");
+	const miscCount = countBySource("miscellaneous");
+
+	document.querySelector('.completedEvents').innerText = completedCount;
+	document.querySelector('.completedEventsPct').innerText = pctBySource(completedCount);
+	document.querySelector('.liveEvents').innerText = liveCount;
+	document.querySelector('.liveEventsPct').innerText = pctBySource(liveCount);
+	document.querySelector('.achievements').innerText = achievementCount;
+	document.querySelector('.achievementsPct').innerText = pctBySource(achievementCount);
+	document.querySelector('.miscellaneous').innerText = miscCount;
+	document.querySelector('.miscellaneousPct').innerText = pctBySource(miscCount);
+
 }
 
 //Wait for the DOM to load
