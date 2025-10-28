@@ -16,16 +16,17 @@ function addEventHandlerForSearch() {
 	const textFilter = document.getElementById("textFilter");
     const tableBody = document.getElementById("tweetTable");
     textFilter.addEventListener("input", function () {
+		tableBody.innerHTML = ""; // clear the table
 		let searchCount = 0, searchText = textFilter.value.toLowerCase();
-        tableBody.innerHTML = "";
+		let html = "";
 		for (const tweet of tweet_array) {
-			const written = tweet.writtenText.toLowerCase();
-            if (written.includes(searchText) && searchText.length > 0) {
+            if (tweet.writtenText.toLowerCase().includes(searchText) && searchText.length > 0) {
                 searchCount++;
-				const rowHTML = tweet.getHTMLTableRow(searchCount);
-				tableBody.innerHTML += rowHTML;
+				html += tweet.getHTMLTableRow(searchCount);
+				
             }
 		}
+		tableBody.innerHTML = html; // repopulate the table (better efficiency)
         document.getElementById("searchCount").innerText = searchCount;
         document.getElementById("searchText").innerText = searchText;
     });

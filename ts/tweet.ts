@@ -36,7 +36,7 @@ class Tweet {
             return "";
         }
         //TODO: parse the written text from the tweet
-        return this.text.substring(this.text.indexOf(" - "), this.text.indexOf("https"));
+        return this.text.substring(this.text.indexOf(" - ") + 3, this.text.indexOf("https"));
     }
 
     get activityType():string {
