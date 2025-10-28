@@ -36,7 +36,7 @@ class Tweet {
             return "";
         }
         //TODO: parse the written text from the tweet
-        return this.text.substring(this.text.lastIndexOf(" - "), this.text.indexOf("https"));
+        return this.text.substring(this.text.indexOf(" - "), this.text.indexOf("https"));
     }
 
     get activityType():string {
@@ -63,6 +63,13 @@ class Tweet {
 
     getHTMLTableRow(rowNumber:number):string {
         //TODO: return a table row which summarizes the tweet with a clickable link to the RunKeeper activity
-        return "<tr></tr>";
+        let clickableURL = this.text.replace(/(https?:\/\/\S+)/g, '<a href="$1" target="_blank">$1</a>');
+        return `
+            <tr>
+                <td>${rowNumber}</td>
+                <td>${this.activityType}</td>
+                <td>${clickableURL}</td>
+            </tr>
+        `;
     }
 }
