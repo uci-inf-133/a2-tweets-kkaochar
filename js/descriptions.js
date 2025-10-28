@@ -16,10 +16,10 @@ function addEventHandlerForSearch() {
 	const textFilter = document.getElementById("textFilter");
     const tableBody = document.getElementById("tweetTable");
     textFilter.addEventListener("input", function () {
-		let searchCount = 0, searchText = textFilter.value;
+		let searchCount = 0, searchText = textFilter.value.toLowerCase();
         tableBody.innerHTML = "";
 		for (const tweet of tweet_array) {
-			const written = tweet.writtenText;
+			const written = tweet.writtenText.toLowerCase();
             if (written.includes(searchText) && searchText.length > 0) {
                 searchCount++;
 				const rowHTML = tweet.getHTMLTableRow(searchCount);
