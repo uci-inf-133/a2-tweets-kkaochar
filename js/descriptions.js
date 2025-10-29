@@ -15,6 +15,7 @@ function addEventHandlerForSearch() {
 	//TODO: Search the written tweets as text is entered into the search box, and add them to the table
 	const textFilter = document.getElementById("textFilter");
     const tableBody = document.getElementById("tweetTable");
+	// get when user is inputting a character
     textFilter.addEventListener("input", function () {
 		tableBody.innerHTML = ""; // clear the table
 		let searchCount = 0, searchText = textFilter.value.toLowerCase();
@@ -26,6 +27,7 @@ function addEventHandlerForSearch() {
 				
             }
 		}
+		// update page
 		tableBody.innerHTML = html; // repopulate the table (better efficiency)
         document.getElementById("searchCount").innerText = searchCount;
         document.getElementById("searchText").innerText = searchText;

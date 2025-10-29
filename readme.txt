@@ -8,7 +8,7 @@
 - 3/3 Adding a text each interface
 
 2. How long, in hours, did it take you to complete this assignment?
-11.5 hours
+12 hours
 
 
 3. What online resources did you consult when completing this assignment? (list sites like StackOverflow or specific URLs for tutorials; describe queries to Generative AI or use of AI-based code completion)
